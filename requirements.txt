@@ -1,0 +1,18 @@
+aiofiles
+Pillow
+humanize
+hachoir
+pyrofork==2.3.45
+TgCrypto
+dnspython
+aiohttp
+telethon
+psutil
+motor
+telethon
+pymongo[srv]==3.12.3
+
+
+# ====================== 💘❤👩‍💻====================================
+#    ==> P O W E R E D - B Y - 🤞 L A Z Y D E V E L O P E  R        |
+# ==================================================================
