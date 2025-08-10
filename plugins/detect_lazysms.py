@@ -192,7 +192,7 @@ async def message_handler(client, message):
                InlineKeyboardButton(f"♻️Backup", url=f"https://t.me/AllTypeOfLinkss")
             ],
             [
-               InlineKeyboardButton(f"18+  Channel 🔞", url=f"https://t.me/+jt0FTlngGCc3OWI1")
+               InlineKeyboardButton(f"18+  Channel 🔞", url=f"https://t.me/+IdabhmoGn1VlNWJl")
             ]
          ])
          await txt.delete()
@@ -223,3 +223,4 @@ async def message_handler(client, message):
 # ====================== 💘❤👩‍💻====================================
 #    ==> P O W E R E D - B Y - 🤞 L A Z Y D E V E L O P E  R        |
 # ==================================================================
+
