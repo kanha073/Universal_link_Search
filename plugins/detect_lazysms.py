@@ -1,11 +1,10 @@
-
 # ====================== 💘❤👩‍💻====================================
 #    ==> P O W E R E D - B Y - 🤞 L A Z Y D E V E L O P E  R        |
 # ==================================================================
 
 from pyrogram import Client, filters, enums
 # from pyrogram.enums import MessageMediaType
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 
 from pyrogram import Client, filters
 import re
@@ -72,9 +71,6 @@ async def message_handler(client, message):
       #   Start search logic 1️⃣ // Hey this is LazyDeveloper, & I am writing this for developers ! 
 #================================================================================================================ 
       #   This is advance search method for searching url in any message
-      #   in you database channel, Ex; If any message contains the movie name 
-      #   searched by user in db channel , and if that message has any link, then 
-      #   bot will only extract the link from the messages 
 #================================================================================================================ 
 #================================================================================================================ 
          # search_results = []
@@ -99,20 +95,7 @@ async def message_handler(client, message):
 #================================================================================================================ 
       #   Start search logic 2️⃣ // Hey this is LazyDeveloper, & I am writing this for developers ! 
 #================================================================================================================
-      #   This is super advance search method for searching url + Name in any message                            |🧧 CONTACT ME @LAZYDEVELOPERR
-      #   in you database channel, Ex; If any message contains the movie name                                    |🧧 GITHUB @LAZYDEVELOPER
-      #   (searched by user) in db channel , and if that message has any link, then                              |🧧 YOUTUBE @LAZYDEVELOPER
-      #   bot will only extract the link and movie name from all the messages                                    |🧧 INSTAGRAM @LAZYDEVELOPER
-      #   and print the movie name and link in group .                                                           |🧧 TELEGRAM @LAZYDEVELOPER
-      #   ==> The bot will only extract the name which is found in => () <= this braces                          |
 #================================================================================================================ 
-                           #  WITH LOVE @LAZYDEVELOPER
-#================================================================================================================ 
-#================================================================================================================ 
-
-# ====================== 💘❤👩‍💻====================================
-#    ==> P O W E R E D - B Y - 🤞 L A Z Y D E V E L O P E  R        |
-# ==================================================================
 
          search_results = []
          try:
@@ -125,7 +108,7 @@ async def message_handler(client, message):
                         target_url = match.group(1).strip()  # Extract the URL
                         
                         # Extract the movie name from text in parentheses ()
-                        movie_name_match = re.search(r"\(([^)]+)\)", search_msg.text)
+                        movie_name_match = re.search(r"([^)]+)", search_msg.text)
                         movie_name = movie_name_match.group(1).strip() if movie_name_match else "Missing title 😂"
                         
                         # Append the result as a tuple of (movie_name, target_url)
@@ -150,51 +133,34 @@ async def message_handler(client, message):
 #    ==> P O W E R E D - B Y - 🤞 L A Z Y D E V E L O P E  R        |
 # ==================================================================
 
-         # Generate and send result message
-#=================================================================================== 
-#==========   THIS IS FOR SEARCH LOGIC 1 👇   =========================================
-#=================================================================================== 
-         #   result_message = "\n\n".join(
-         #       [
-         #           f"✅ **Result {i + 1}:**\n{search_msg.text or 'Media/Caption Message'}"
-         #           for i, search_msg in enumerate(search_results)
-         #       ]
-         #   )
-         # result_message = "\n\n".join(
-         #       [
-         #          f"✅ **Result {i + 1}:**\n[{match.group(2)}]({match.group(1)})"
-         #          for i, search_msg in enumerate(search_results)
-         #          if (match := re.match(r"(https?://[^\s]+) \((.+?)\)", search_msg.text))
-         #       ]
-         #    )
-         # result_message = "\n\n".join([f"✅ **Result {i + 1}:**\n{url}" for i, url in enumerate(search_results)])
-         
-#=================================================================================== 
-#=================================================================================== 
-#===================================================================================
- 
-# ====================== 💘❤👩‍💻====================================
-#    ==> P O W E R E D - B Y - 🤞 L A Z Y D E V E L O P E  R        |
-# ==================================================================
-
          result_message = "\n".join([f"<blockquote>📂 <b>{movie_name}</b>\n<b>Link:</b> {target_url}</blockquote>" for movie_name, target_url in search_results])
          print('got result')
          response = (
             f"**🤞Search Results for '{queryz}':**\n\n"
             f"{result_message}\n\n"
          )
-         reply_button = InlineKeyboardMarkup([
-            [
-               InlineKeyboardButton(f"How To Open Link ❓", url=f"https://t.me/FilmyflyLinkOpen")
-            ],
-            [
-               InlineKeyboardButton(f"🪅Request", url=f"https://t.me/+Aa-zL92bgqQ4OTll"),
-               InlineKeyboardButton(f"♻️Backup", url=f"https://t.me/AllTypeOfLinkss")
-            ],
-            [
-               InlineKeyboardButton(f"18+  Channel 🔞", url=f"https://t.me/+IdabhmoGn1VlNWJl")
-            ]
+
+         # Pagination button show only if results >= 5
+         show_pagination = len(search_results) >= 5
+
+         buttons = []
+         if show_pagination:
+             buttons.append([
+                 InlineKeyboardButton(f"⬅️ Back", callback_data="back"),
+                 InlineKeyboardButton(f"Next ➡️", callback_data="next")
+             ])
+
+         buttons.extend([
+             [InlineKeyboardButton(f"How To Open Link ❓", url=f"https://t.me/FilmyflyLinkOpen")],
+             [
+                 InlineKeyboardButton(f"🪅Request", url=f"https://t.me/+Aa-zL92bgqQ4OTll"),
+                 InlineKeyboardButton(f"♻️Backup", url=f"https://t.me/AllTypeOfLinkss")
+             ],
+             [InlineKeyboardButton(f"18+  Channel 🔞", url=f"https://t.me/+IdabhmoGn1VlNWJl")]
          ])
+
+         reply_button = InlineKeyboardMarkup(buttons)
+         
          await txt.delete()
          result = await message.reply(response, reply_markup=reply_button, disable_web_page_preview=True)
 
@@ -220,8 +186,100 @@ async def message_handler(client, message):
          return
 
 
-# ====================== 💘❤👩‍💻====================================
-#    ==> P O W E R E D - B Y - 🤞 L A Z Y D E V E L O P E  R        |
-# ==================================================================
+# =================== CALLBACK QUERY HANDLER FOR PAGINATION ===================
 
+@Client.on_callback_query()
+async def callback_query_handler(client: Client, callback_query: CallbackQuery):
+    data = callback_query.data
 
+    if data not in ["back", "next"]:
+        return
+
+    message = callback_query.message
+    if not message or not message.reply_to_message:
+        await callback_query.answer("Invalid operation.", show_alert=True)
+        return
+
+    original_query = message.reply_to_message.text or ""
+    import re
+    match = re.search(r"⏳ Searching for links matching: `(.*?)` 🔍", original_query)
+    if not match:
+        await callback_query.answer("Sorry, can't find the original query.", show_alert=True)
+        return
+
+    queryz = match.group(1)
+
+    # In-memory pagination state
+    if not hasattr(client, "_pagination_state"):
+        client._pagination_state = {}
+
+    user_id = callback_query.from_user.id
+    key = f"{user_id}:{queryz}"
+
+    current_page = client._pagination_state.get(key, 0)
+
+    if data == "next":
+        current_page += 1
+    elif data == "back":
+        current_page -= 1
+        if current_page < 0:
+            current_page = 0
+
+    client._pagination_state[key] = current_page
+
+    sessionstring = await db.get_session(OWNER_ID)
+    if sessionstring is None:
+        await callback_query.answer("Bot is not initialized.", show_alert=True)
+        return
+
+    Lazyuserbot = TelegramClient(StringSession(sessionstring), API_ID, API_HASH)
+    if not Lazyuserbot.is_connected():
+        await Lazyuserbot.start()
+
+    search_results = []
+    try:
+        async for search_msg in Lazyuserbot.iter_messages(DB_CHANNEL, search=queryz, limit=5, offset=current_page*5):
+            if search_msg.text:
+                match_url = re.match(r"(https?://[^\s]+)", search_msg.text)
+                if match_url:
+                    target_url = match_url.group(1).strip()
+                    movie_name_match = re.search(r"([^)]+)", search_msg.text)
+                    movie_name = movie_name_match.group(1).strip() if movie_name_match else "Missing title 😂"
+                    search_results.append((movie_name, target_url))
+    except Exception as e:
+        print(f"Error while paginating messages: {e}")
+        await callback_query.answer("An error occurred while searching.", show_alert=True)
+        await Lazyuserbot.disconnect()
+        return
+
+    if not search_results:
+        if data == "next":
+            current_page -= 1
+            if current_page < 0:
+                current_page = 0
+            client._pagination_state[key] = current_page
+        await callback_query.answer("No more results.", show_alert=True)
+        await Lazyuserbot.disconnect()
+        return
+
+    result_message = "\n".join(
+        [f"<blockquote>📂 <b>{movie_name}</b>\n<b>Link:</b> {target_url}</blockquote>" for movie_name, target_url in search_results]
+    )
+    response = (
+        f"**🤞Search Results for '{queryz}':**\n\n"
+        f"{result_message}\n\n"
+    )
+
+    show_pagination = len(search_results) >= 5
+
+    buttons = []
+    if show_pagination:
+        buttons.append([
+            InlineKeyboardButton(f"⬅️ Back", callback_data="back"),
+            InlineKeyboardButton(f"Next ➡️", callback_data="next")
+        ])
+
+    buttons.extend([
+        [InlineKeyboardButton(f"How To Open Link ❓", url=f"https://t.me/FilmyflyLinkOpen")],
+        [
+            InlineKeyboardButton(f"
