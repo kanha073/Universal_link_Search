@@ -6,13 +6,15 @@ pyrofork==2.3.45
 TgCrypto
 dnspython
 aiohttp
-telethon
 psutil
 motor
 telethon
 pymongo[srv]==3.12.3
 
+# fuzzy search ke liye
+fuzzywuzzy==0.18.0
+python-Levenshtein==0.21.0
 
-# ====================== 💘❤👩‍💻====================================
-#    ==> P O W E R E D - B Y - 🤞 L A Z Y D E V E L O P E  R        |
-# ==================================================================
+# ================== 💘🦋🧚 ==================
+# ==> P O W E R E D - B Y - 👆 L A Z Y D E V E L O P E R
+# ================== 🍿 ==================
