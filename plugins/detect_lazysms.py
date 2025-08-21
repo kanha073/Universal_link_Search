@@ -1,11 +1,8 @@
 from pyrogram import Client, filters, enums from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup import re import asyncio from config import * from lazydeveloper.helpers import validate_query from telethon import TelegramClient from telethon.sessions import StringSession from lazydeveloper.lazydb import db from fuzzywuzzy import process
 
-====================== 💘❤👩‍💻====================================
 
-==> P O W E R E D - B Y - 🤞 L A Z Y D E V E L O P E  R        |
 
-==================================================================
-
+    
 Store user search data for pagination
 
 user_search_data = {}
@@ -190,9 +187,6 @@ else:
 user_search_data[user_id]["page"] = page
 await send_paginated_results(callback_query.message, results, page, query=callback_query)
 
-====================== 💘❤👩‍💻====================================
 
-==> P O W E R E D - B Y - 🤞 L A Z Y D E V E L O P E  R        |
 
-==================================================================
 
