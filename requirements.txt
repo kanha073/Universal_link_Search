@@ -13,7 +13,4 @@ pymongo[srv]==3.12.3
 fuzzywuzzy==0.18.0
 python-Levenshtein==0.21.0
 
-# ================== 💘🦋🧚 ==================
-# ==> P O W E R E D - B Y - 👆 L A Z Y D E V E L O P E R
-# ================== 🍿 ==================
 
