@@ -12,5 +12,4 @@ telethon
 pymongo[srv]==3.12.3
 fuzzywuzzy==0.18.0
 python-Levenshtein==0.21.0
-cinemagoer
 
