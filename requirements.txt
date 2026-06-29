@@ -6,10 +6,12 @@ pyrofork==2.3.45
 TgCrypto
 dnspython
 aiohttp
+telethon==1.39.0
 psutil
-motor
-telethon
+motor==2.5.1
 pymongo[srv]==3.12.3
-fuzzywuzzy==0.18.0
-python-Levenshtein==0.21.0
+fuzzywuzzy
+rapidfuzz
+SQLAlchemy<2.0
+cinemagoer==2023.5.1
 
